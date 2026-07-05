@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: musig-api
+  namespace: musig-beta
+  labels:
+    app: musig-api
+spec:
+  selector:
+    app: musig-api
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+      protocol: TCP
+  type: ClusterIP

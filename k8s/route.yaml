@@ -1,0 +1,22 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: musig-api
+  namespace: musig-beta
+  labels:
+    app: musig-api
+    product: musig
+    role: backend
+spec:
+  host: musig-api.example
+  path: /api
+  to:
+    kind: Service
+    name: musig-api
+    weight: 100
+  port:
+    targetPort: http
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None

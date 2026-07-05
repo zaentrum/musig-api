@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: musig-api
+  namespace: musig-beta
+  labels:
+    app: musig-api
+    product: musig
+    role: backend
+    env: beta
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: musig-api
+  template:
+    metadata:
+      labels:
+        app: musig-api
+        product: musig
+        role: backend
+        env: beta
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: app
+          image: ghcr.io/zaentrum/musig-api:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              name: http
+          env:
+            - name: ADDR
+              value: ":8080"
+            - name: OIDC_ISSUER
+              value: "https://sso.example/realms/stube"
+            - name: OIDC_AUDIENCE
+              value: "musig-web-beta"
+            - name: OIDC_ENABLED
+              value: "true"
+          livenessProbe:
+            httpGet:
+              path: /api/healthz
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /api/healthz
+              port: http
+            initialDelaySeconds: 3
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
