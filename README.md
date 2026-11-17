@@ -49,7 +49,7 @@ All wiring is via environment variables (see `internal/config`):
 |---|---|---|
 | `ADDR` | `:8080` | listen address |
 | `OIDC_ISSUER` | — | OIDC issuer URL |
-| `OIDC_AUDIENCE` | `musig-web-beta` | expected token audience |
+| `OIDC_AUDIENCE` | `musig-web` | the audience the tokens must carry: set it to the client id your identity provider issues them for |
 | `OIDC_ENABLED` | `true` | set `false` to bypass auth locally |
 
 ## Container image

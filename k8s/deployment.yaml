@@ -2,12 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: musig-api
-  namespace: musig-beta
   labels:
     app: musig-api
     product: musig
     role: backend
-    env: beta
 spec:
   replicas: 1
   strategy:
@@ -24,7 +22,6 @@ spec:
         app: musig-api
         product: musig
         role: backend
-        env: beta
     spec:
       securityContext:
         runAsNonRoot: true
@@ -41,9 +38,9 @@ spec:
             - name: ADDR
               value: ":8080"
             - name: OIDC_ISSUER
-              value: "https://sso.example/realms/stube"
+              value: "https://sso.example/realms/zaentrum"
             - name: OIDC_AUDIENCE
-              value: "musig-web-beta"
+              value: "musig-web"
             - name: OIDC_ENABLED
               value: "true"
           livenessProbe:

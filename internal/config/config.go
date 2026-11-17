@@ -16,7 +16,7 @@ func Load() Config {
 	c := Config{
 		Addr:         envDefault("ADDR", ":8080"),
 		OIDCIssuer:   envDefault("OIDC_ISSUER", ""),
-		OIDCAudience: envDefault("OIDC_AUDIENCE", "musig-web-beta"),
+		OIDCAudience: envDefault("OIDC_AUDIENCE", "musig-web"),
 		OIDCEnabled:  envDefault("OIDC_ENABLED", "true") != "false",
 	}
 	return c
